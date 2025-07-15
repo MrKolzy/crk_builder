@@ -80,19 +80,19 @@ class SubstatOptimizer:
 
             # ATK, HP, ATK SPD, CRIT%
             if substats[0] in (0, 1, 2, 3):
-                if self.__strict == True:
+                if self.__strict:
                     if topping_one[1] >= 1.8:
                         optimized_value += topping_one[1] / 3.0
                 else:
                     optimized_value += topping_one[1] / 3.0
             if substats[1] in (0, 1, 2, 3):
-                if self.__strict == True:
+                if self.__strict:
                     if topping_two[1] >= 1.8:
                         optimized_value += topping_two[1] / 3.0
                 else:
                     optimized_value += topping_two[1] / 3.0
             if substats[2] in (0, 1, 2, 3):
-                if self.__strict == True:
+                if self.__strict:
                     if topping_three[1] >= 1.8:
                         optimized_value += topping_three[1] / 3.0
                 else:
@@ -100,19 +100,19 @@ class SubstatOptimizer:
 
             # Cooldown
             if substats[0] == 4:
-                if self.__strict == True:
+                if self.__strict:
                     if topping_one[1] >= 1.4:
                         optimized_value += topping_one[1] / 2.0
                 else:
                     optimized_value += topping_one[1] / 2.0
             if substats[1] == 4:
-                if self.__strict == True:
+                if self.__strict:
                     if topping_two[1] >= 1.4:
                         optimized_value += topping_two[1] / 2.0
                 else:
                     optimized_value += topping_two[1] / 2.0
             if substats[2] == 4:
-                if self.__strict == True:
+                if self.__strict:
                     if topping_three[1] >= 1.4:
                         optimized_value += topping_three[1] / 2.0
                 else:
@@ -120,19 +120,19 @@ class SubstatOptimizer:
 
             # DMG Resist
             if substats[0] == 5:
-                if self.__strict == True:
+                if self.__strict:
                     if topping_one[1] >= 4.6:
                         optimized_value += topping_one[1] / 6.0
                 else:
                     optimized_value += topping_one[1] / 6.0
             if substats[1] == 5:
-                if self.__strict == True:
+                if self.__strict:
                     if topping_two[1] >= 4.6:
                         optimized_value += topping_two[1] / 6.0
                 else:
                     optimized_value += topping_two[1] / 6.0
             if substats[2] == 5:
-                if self.__strict == True:
+                if self.__strict:
                     if topping_three[1] >= 4.6:
                         optimized_value += topping_three[1] / 6.0
                 else:
@@ -183,14 +183,14 @@ class SubstatOptimizer:
             # ATK, HP, ATK SPD, CRIT%
             if substats[0] in (0, 1, 2, 3):
                 # If strict optimization is activated
-                if self.__strict == True:
+                if self.__strict:
                     # The higher the value, the better the results, but the quantity also decreases
                     if topping_one[1] >= 1.8:
                         optimized_value += topping_one[1] / 3.0
                 else:
                     optimized_value += topping_one[1] / 3.0
             if substats[1] in (0, 1, 2, 3):
-                if self.__strict == True:
+                if self.__strict:
                     if topping_two[1] > 1.8:
                         optimized_value += topping_two[1] / 3.0
                 else:
@@ -198,13 +198,13 @@ class SubstatOptimizer:
 
             # Cooldown
             if substats[0] == 4:
-                if self.__strict == True:
+                if self.__strict:
                     if topping_one[1] >= 1.4:
                         optimized_value += topping_one[1] / 2.0
                 else:
                     optimized_value += topping_one[1] / 2.0
             if substats[1] == 4:
-                if self.__strict == True:
+                if self.__strict:
                     if topping_two[1] >= 1.4:
                         optimized_value += topping_two[1] / 2.0
                 else:
@@ -212,13 +212,13 @@ class SubstatOptimizer:
 
             # DMG Resist
             if substats[0] == 5:
-                if self.__strict == True:
+                if self.__strict:
                     if topping_one[1] >= 4.6:
                         optimized_value += topping_one[1] / 6.0
                 else:
                     optimized_value += topping_one[1] / 6.0
             if substats[1] == 5:
-                if self.__strict == True:
+                if self.__strict:
                     if topping_two[1] >= 4.6:
                         optimized_value += topping_two[1] / 6.0
                 else:
@@ -294,7 +294,7 @@ class SubstatOptimizer:
         print("[The maximum value with 2 substats is: 2.0]")
         for topping_position, topping_score in optimized_list:
             # If strict optimization is activated
-            if self.__strict == True:
+            if self.__strict:
                 # Only consider those that are strictly optimized
                 if topping_score > 1.0:
                     print(f"[{iterator}] Topping Position ({topping_position}): Score => {topping_score}")
@@ -312,7 +312,7 @@ class SubstatOptimizer:
         iterator: int = 1
         print("[The maximum value with 3 substats is: 3.0]")
         for topping_position, topping_score in optimized_list:
-            if self.__strict == True:
+            if self.__strict:
                 if topping_score > 2.0:
                     print(f"[{iterator}] Topping Position ({topping_position}): Score => {topping_score}")
                     iterator += 1
