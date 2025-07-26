@@ -8,13 +8,14 @@ class SubstatOptimizer:
         # List of tuples, each containing: (topping index, value)
 
         # Specifying the index of each list for later use
-        # | 0 ATK | 1 HP | 2 ATK SPD | 3 CRIT% | 4 Cooldown | 5 DMG Resist |
+        # | 0 ATK | 1 HP | 2 ATK SPD | 3 CRIT% | 4 Cooldown | 5 DMG Resist | 6 Amplify Buff
         self.__atk_list    : list = [] # 0
         self.__hp_list     : list = [] # 1
         self.__atk_spd_list: list = [] # 2
         self.__crit_list   : list = [] # 3
         self.__cd_list     : list = [] # 4
         self.__dr_list     : list = [] # 5
+        self.__ab_list     : list = [] # 6
         self.__strict      : bool = strict # To make the optimization stricter
 
     def perform_optimization(self, substats: tuple[int, ...]) -> None:
@@ -37,7 +38,7 @@ class SubstatOptimizer:
     def __optimize_three_substats(self, substats: tuple[int, ...]) -> list:
         # Help list to find the specified substats
         substat_list: list = [self.__atk_list, self.__hp_list, self.__atk_spd_list
-            , self.__crit_list, self.__cd_list, self.__dr_list]
+            , self.__crit_list, self.__cd_list, self.__dr_list, self.__ab_list]
 
         # List with the optimized values
         optimized_list: list = []
@@ -98,20 +99,20 @@ class SubstatOptimizer:
                 else:
                     optimized_value += topping_three[1] / 3.0
 
-            # Cooldown
-            if substats[0] == 4:
+            # Cooldown, Amplify Buff
+            if substats[0] in (4, 6):
                 if self.__strict:
                     if topping_one[1] >= 1.4:
                         optimized_value += topping_one[1] / 2.0
                 else:
                     optimized_value += topping_one[1] / 2.0
-            if substats[1] == 4:
+            if substats[1] in (4, 6):
                 if self.__strict:
                     if topping_two[1] >= 1.4:
                         optimized_value += topping_two[1] / 2.0
                 else:
                     optimized_value += topping_two[1] / 2.0
-            if substats[2] == 4:
+            if substats[2] in (4, 6):
                 if self.__strict:
                     if topping_three[1] >= 1.4:
                         optimized_value += topping_three[1] / 2.0
@@ -148,7 +149,7 @@ class SubstatOptimizer:
     def __optimize_two_substats(self, substats: tuple[int, ...]) -> list:
         # Help list to find the specified substats
         substat_list: list = [self.__atk_list, self.__hp_list, self.__atk_spd_list
-            , self.__crit_list, self.__cd_list, self.__dr_list]
+            , self.__crit_list, self.__cd_list, self.__dr_list, self.__ab_list]
 
         # List with the optimized values
         optimized_list: list = []
@@ -196,14 +197,14 @@ class SubstatOptimizer:
                 else:
                     optimized_value += topping_two[1] / 3.0
 
-            # Cooldown
-            if substats[0] == 4:
+            # Cooldown, Amplify Buff
+            if substats[0] in (4, 6):
                 if self.__strict:
                     if topping_one[1] >= 1.4:
                         optimized_value += topping_one[1] / 2.0
                 else:
                     optimized_value += topping_one[1] / 2.0
-            if substats[1] == 4:
+            if substats[1] in (4, 6):
                 if self.__strict:
                     if topping_two[1] >= 1.4:
                         optimized_value += topping_two[1] / 2.0
@@ -283,6 +284,12 @@ class SubstatOptimizer:
                 if match:
                     dr_value: float = float(match.group(1))
                     self.__dr_list.append((topping_index, dr_value))
+
+                # Amplify Buff
+                match: Optional[re.Match] = re.search(r"Amplify Buff\s+(\d+(?:\.\d+)?)%", line)
+                if match:
+                    ab_value: float = float(match.group(1))
+                    self.__ab_list.append((topping_index, ab_value))
 
     def __print_two_substats(self, optimized_list: list) -> None:
         # We order from the highest to lowest optimized value
