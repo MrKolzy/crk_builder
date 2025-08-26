@@ -3,12 +3,12 @@ from crk_builder.substat_optimizer    import SubstatOptimizer
 from crk_builder.text_extractor       import TextExtractor
 from crk_builder.utils.window_manager import WindowManager
 
-# CRK VERSION 6.7.002
+# CRK VERSION 6.7.402
 
 # Tested only with BS5 emulator
 WINDOW_NAME: str = "BlueStacks App Player"
 
-ROWS       : int = 5
+ROWS       : int = 4
 
 # Only 2 or 3 substats can be specified at the same time
 # | 0 ATK | 1 HP | 2 ATK SPD | 3 CRIT% | 4 Cooldown | 5 DMG Resist | 6 Amplify Buff
